@@ -34,11 +34,13 @@ jobs:
           poetry run meson install -C builddir --destdir=/tmp/hse
 
        - uses: actions/checkout@v2
+         with:
+           path: './'
  
        - name: Build mongo
          run: |
            scons -j$(nproc) --dbg=off --opt=on CPPPATH=/tmp/hse/opt/hse/include/hse-2 LIBPATH=/tmp/hse/opt/hse/lib64 --disable-warnings-as-errors all hse_unit_tests
            cd build/opt/mongo/db/storage/hse
            mkdir ./kvdb_home_test
-           ./hse_test_harness.py ${{ github.run_id }} /opt/hse/bin/hse2 ./kvdb_home_test
+           ./hse_test_harness.py ${{ github.run_id }} /tmp/hse/opt/hse/bin/hse2 ./kvdb_home_test
          
