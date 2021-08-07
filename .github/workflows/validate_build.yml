@@ -33,6 +33,11 @@ jobs:
           poetry run meson builddir -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
           poetry run DESTDIR=/tmp/hse meson install -C builddir
 
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: hse-build-artifact
+          path: builddir/meson-logs/
        
       - uses: actions/checkout@v2
         with:
