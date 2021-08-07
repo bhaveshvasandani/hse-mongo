@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: 'bhaveshvasandani/workflows'
-          ref: 'hsemaster'
+          ref: 'hsemaster-fix-shell'
           path: 'hse'
 
       - name : Build and install hse
