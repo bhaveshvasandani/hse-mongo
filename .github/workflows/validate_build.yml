@@ -31,7 +31,8 @@ jobs:
           poetry install
           sed -i.bak "s,ssh://git@bitbucket.micron.com/hse/hse-python.git,https://${{ secrets.GH_TOKEN }}@github.com/bhaveshvasandani/hse-python.git,g" subprojects/hse-python.wrap
           poetry run meson builddir -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
-          poetry run DESTDIR=/tmp/hse meson install -C builddir
+          echo $TMPDIR
+          poetry run meson install -C builddir --destdir=$TMPDIR/hse
 
       - uses: actions/upload-artifact@v2
         if: failure()
