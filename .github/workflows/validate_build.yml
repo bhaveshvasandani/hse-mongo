@@ -37,7 +37,7 @@ jobs:
         if: failure()
         with:
           name: hse-build-artifact
-          path: builddir/meson-logs/
+          path: hse/builddir/meson-logs/
        
       - uses: actions/checkout@v2
         with:
