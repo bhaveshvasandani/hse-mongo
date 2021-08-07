@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install build-essential libblkid-dev libbsd-dev gettext autopoint autoconf bison libtool pkg-config openjdk-8-jdk libmicrohttpd-dev liburcu-dev libyaml-dev liblz4-1 liblz4-dev curl python3-setuptools
+          sudo apt-get install build-essential libblkid-dev libbsd-dev gettext autopoint autoconf bison libtool pkg-config openjdk-8-jdk libmicrohttpd-dev liburcu-dev libyaml-dev liblz4-1 liblz4-dev curl python3-setuptools git
           sudo apt-get install libmongoc-1.0-0 libbson-1.0-0 libssl-dev libsasl2-dev
           python3 -m pip install --user setuptools_rust wheel
           python3 -m pip install --user poetry
@@ -26,8 +26,8 @@ jobs:
           path: 'hse'
 
       - name : Build and install hse
-        working-directory: ./hse
         run: |
+          cd hse
           poetry install
           sed -i.bak "s,ssh://git@bitbucket.micron.com/hse/hse-python.git,https://${{ secrets.GH_TOKEN }}@github.com/bhaveshvasandani/hse-python.git,g" subprojects/hse-python.wrap
           poetry run meson builddir -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
