@@ -30,7 +30,7 @@ jobs:
         run: |
           poetry install
           sed -i.bak "s,ssh://git@bitbucket.micron.com/hse/hse-python.git,https://${{ secrets.GH_TOKEN }}@github.com/bhaveshvasandani/hse-python.git,g" subprojects/hse-python.wrap
-          poetry run meson builddir -Dbuildtype=${{ matrix.build_type }} -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
+          poetry run meson builddir -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
           poetry run DESTDIR=/tmp/hse meson install -C builddir
 
        
