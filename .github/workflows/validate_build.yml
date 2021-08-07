@@ -31,8 +31,8 @@ jobs:
           poetry install
           sed -i.bak "s,ssh://git@bitbucket.micron.com/hse/hse-python.git,https://${{ secrets.GH_TOKEN }}@github.com/bhaveshvasandani/hse-python.git,g" subprojects/hse-python.wrap
           poetry run meson builddir -Dycsb=true -Dinstall-tools=true -Dinstall-configs=true
-          echo $TMPDIR
-          poetry run meson install -C builddir --destdir=$TMPDIR/hse
+          echo ${{ runner.temp }}
+          poetry run meson install -C builddir --destdir="${{ runner.temp }}/hse"
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -46,8 +46,8 @@ jobs:
  
       - name: Build mongo
         run: |
-          scons -j$(nproc) --dbg=off --opt=on CPPPATH=/tmp/hse/opt/hse/include/hse-2 LIBPATH=/tmp/hse/opt/hse/lib64 --disable-warnings-as-errors all hse_unit_tests
+          scons -j$(nproc) --dbg=off --opt=on CPPPATH=${{ runner.temp }}/hse/opt/hse/include/hse-2 LIBPATH=${{ runner.temp }}/hse/opt/hse/lib64 --disable-warnings-as-errors all hse_unit_tests
           cd build/opt/mongo/db/storage/hse
           mkdir ./kvdb_home_test
-          ./hse_test_harness.py ${{ github.run_id }} /tmp/hse/opt/hse/bin/hse2 ./kvdb_home_test
+          ./hse_test_harness.py ${{ github.run_id }} ${{ runner.temp }}/hse/opt/hse/bin/hse2 ./kvdb_home_test
          
