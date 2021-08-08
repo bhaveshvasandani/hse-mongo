@@ -47,6 +47,8 @@ jobs:
           path: hse/builddir/meson-logs/
        
       - uses: actions/checkout@v2
+        with:
+          fetch_depth: 0
  
       - name: Build mongo
         run: |
