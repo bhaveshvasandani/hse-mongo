@@ -52,7 +52,8 @@ jobs:
  
       - name: Build mongo
         run: |
-          git describe         
+          ls ${{ runner.temp }}/hse/opt/hse/include/hse-2
+          ls ${{ runner.temp }}/hse/opt/hse/lib64
           MONGO_VERSION=0.0.0 scons -j$(nproc) --dbg=off --opt=on CPPPATH=${{ runner.temp }}/hse/opt/hse/include/hse-2 LIBPATH=${{ runner.temp }}/hse/opt/hse/lib64 --disable-warnings-as-errors all hse_unit_tests
           cd build/opt/mongo/db/storage/hse
           mkdir ./kvdb_home_test
