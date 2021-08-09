@@ -56,7 +56,7 @@ jobs:
           cd build/opt/mongo/db/storage/hse
           mkdir ./kvdb_home_test
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${{ runner.temp }}/hse/opt/hse/lib/x86_64-linux-gnu
-          ./hse_test_harness.py ${{ github.run_id }} ${{ runner.temp }}/hse/opt/hse/bin/hse2 ./kvdb_home_test
+          ./hse_test_harness.py ${{ github.run_id }} ${{ runner.temp }}/hse/opt/hse/bin/hse2 $(realpath ./kvdb_home_test)
 
       - name: Archive output files
         uses: actions/upload-artifact@v2
