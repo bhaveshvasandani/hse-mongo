@@ -56,4 +56,12 @@ jobs:
           cd build/opt/mongo/db/storage/hse
           mkdir ./kvdb_home_test
           ./hse_test_harness.py ${{ github.run_id }} ${{ runner.temp }}/hse/opt/hse/bin/hse2 ./kvdb_home_test
+
+      - name: Archive output files
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: hse-unit-test-output-artifact
+          path: build/opt/mongo/db/storage/hse/*out
+
          
