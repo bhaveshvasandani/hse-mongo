@@ -52,7 +52,7 @@ jobs:
  
       - name: Build mongo
         run: |
-          MONGO_VERSION=0.0.0 scons -j$(nproc) --dbg=off --opt=on CPPPATH=${{ runner.temp }}/hse/opt/hse/include/hse-2 LIBPATH=${{ runner.temp }}/hse/opt/hse/lib/x86_64-linux-gnu --disable-warnings-as-errors all hse_unit_tests
+          MONGO_VERSION=0.0.0 scons -j$(nproc) --dbg=off --opt=on CPPPATH=${{ runner.temp }}/hse/opt/hse/include/hse-2 LIBPATH=${{ runner.temp }}/hse/opt/hse/lib/x86_64-linux-gnu --disable-warnings-as-errors hse_unit_tests
           cd build/opt/mongo/db/storage/hse
           mkdir ./kvdb_home_test
           ./hse_test_harness.py ${{ github.run_id }} ${{ runner.temp }}/hse/opt/hse/bin/hse2 ./kvdb_home_test
