@@ -66,6 +66,8 @@ jobs:
 
     steps:
 
+    - uses: actions/checkout@v2
+
     - name: Validate Clang format
       run: |
         ./buildscripts/clang_format.py lint
