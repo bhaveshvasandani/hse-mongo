@@ -61,3 +61,11 @@ jobs:
         name: hse-unit-test-output-artifact
         path: build/opt/mongo/db/storage/hse/*out
 
+  clang_format:
+    runs-on: ubuntu-18.04
+
+    steps:
+
+      - name: Validate Clang format
+      run: |
+        ./buildscripts/clang_format.py lint
